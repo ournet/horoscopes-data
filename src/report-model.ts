@@ -7,14 +7,14 @@ const EXPIRES_AT_FIELD = 'expiresAt';
 
 export class ReportModel extends MongoModel<Report> implements ReportRepository {
     constructor(db: Db, tableSuffix: string) {
-        super(db, `ournet_horo_phrases_${tableSuffix}`);
+        super(db, `ournet_horo_reports_${tableSuffix}`);
     }
 
     async createStorage() {
         await super.createStorage();
         const index = {} as any;
         index[EXPIRES_AT_FIELD] = 1;
-        
+
         await this.collection.createIndex(index, { expireAfterSeconds: 0 });
     }
 
