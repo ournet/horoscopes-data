@@ -13,9 +13,10 @@ export class MongoModel<T extends BaseEntity> implements Repository<T>{
     }
     async create(data: T): Promise<T> {
         data = this.beforeCreate(data);
-        const result = await this.collection.insertOne(this.convertToMongoDoc(data));
+        const mongoData = this.convertToMongoDoc(data);
+        const result = await this.collection.insertOne(mongoData);
         if (result.insertedCount === 1) {
-            return this.convertFromMongoDoc(data);
+            return this.convertFromMongoDoc(mongoData);
         }
         throw new Error(`Data not inserted!`);
     }
@@ -116,7 +117,7 @@ export class MongoModel<T extends BaseEntity> implements Repository<T>{
         })
 
         if (ensureId) {
-            obj['_d'] = value;
+            obj['_id'] = value;
         }
 
         return obj;
