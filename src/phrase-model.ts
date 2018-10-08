@@ -12,8 +12,8 @@ export class PhraseModel extends MongoModel<Phrase> implements PhraseRepository 
 
     async random(params: RandomPhrasesQueryParams, _options?: RepositoryAccessOptions<Phrase>): Promise<Phrase[]> {
         const result = await this.collection.aggregate([
+            { $match: { lang: params.lang, sign: params.sign, period: params.period } },
             { $sample: { size: params.limit } },
-            { $match: { lang: params.lang, sign: params.sign, period: params.period } }
         ]).toArray();
 
         return result.map(item => this.convertFromMongoDoc(item));
