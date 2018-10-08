@@ -1,7 +1,7 @@
 import { MongoModel } from "./mongo-model";
-import { RepositoryUpdateData } from "@ournet/domain";
+import { RepositoryUpdateData, RepositoryAccessOptions } from "@ournet/domain";
 import { Report, ReportRepository } from '@ournet/horoscopes-domain';
-import { Db } from "mongodb";
+import { Db, FindOneOptions } from "mongodb";
 
 const EXPIRES_AT_FIELD = 'expiresAt';
 
@@ -16,6 +16,7 @@ export class ReportModel extends MongoModel<Report> implements ReportRepository 
         index[EXPIRES_AT_FIELD] = 1;
 
         await this.collection.createIndex(index, { expireAfterSeconds: 0 });
+        await this.collection.createIndex({ textHash: 1 });
     }
 
     protected beforeCreate(data: Report) {
@@ -40,5 +41,17 @@ export class ReportModel extends MongoModel<Report> implements ReportRepository 
         }
 
         return item;
+    }
+
+    async getByTextHash(hash: string, options?: RepositoryAccessOptions<Report>): Promise<Report | null> {
+        const mongoOptions: FindOneOptions = {};
+        if (options && options.fields && options.fields.length) {
+            mongoOptions.projection = this.fillObjectFields(options.fields as string[], 1, true);
+        }
+        const result = await this.collection.findOne({ textHash: hash }, mongoOptions);
+        if (result) {
+            return this.convertFromMongoDoc(result);
+        }
+        return null;
     }
 }

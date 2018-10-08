@@ -19,6 +19,9 @@ export class MongoReportRepository extends BaseRepository<Report> implements Rep
     getById(id: string, options?: RepositoryAccessOptions<Report>): Promise<Report | null> {
         return this.model.getById(id, options);
     }
+    getByTextHash(hash: string, options?: RepositoryAccessOptions<Report>): Promise<Report | null> {
+        return this.model.getByTextHash(hash, options);
+    }
     getByIds(ids: string[], options?: RepositoryAccessOptions<Report>): Promise<Report[]> {
         return this.model.getByIds(ids, options);
     }
