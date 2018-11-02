@@ -93,7 +93,7 @@ export class MongoModel<T extends BaseEntity> implements Repository<T>{
         return data;
     }
 
-    protected convertToMongoDoc(data: T): Object {
+    protected convertToMongoDoc(data: T): any {
         const doc = { ...<any>data };
         doc._id = data.id;
         delete doc.id;
