@@ -1,6 +1,6 @@
 {
   "name": "@ournet/horoscopes-data",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Ournet horoscopes data module",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -37,7 +37,7 @@
   "homepage": "https://github.com/ournet/horoscopes-data#readme",
   "devDependencies": {
     "@types/mongodb": "^3.1.14",
-    "@types/node": "10.12.2",
+    "@types/node": "10.12.7",
     "ava": "^0.25.0",
     "debug": "^4.1.0",
     "rimraf": "^2.6.2",
@@ -45,7 +45,7 @@
   },
   "dependencies": {
     "@ournet/domain": "^0.3.3",
-    "@ournet/horoscopes-domain": "^0.1.0",
-    "mongodb": "^3.1.8"
+    "@ournet/horoscopes-domain": "^0.1.1",
+    "mongodb": "^3.1.9"
   }
 }
