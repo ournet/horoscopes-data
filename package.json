@@ -1,6 +1,6 @@
 {
   "name": "@ournet/horoscopes-data",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Ournet horoscopes data module",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
