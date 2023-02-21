@@ -20,7 +20,7 @@ export class PhraseModel
   async list({ lang, limit, offset }: PhraseQueryParams): Promise<Phrase[]> {
     const result = await this.collection
       .find({ lang })
-      .sort("id")
+      .sort("_id")
       .limit(limit)
       .skip(offset || 0)
       .toArray();
